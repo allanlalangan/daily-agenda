@@ -1,25 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/styles.css">
-    <script defer src="./scripts/scripts.js"></script>
-    <title>Today's Agenda</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <script defer src="./scripts/scripts.js"></script>
+  <title>Today's Agenda</title>
 </head>
 <body>
-    <header></header>
-    <main>
-        <section class="lists-container">
-            <ul class="lists">
-                <li class="list-title">Home</li>
-                <li class="list-title">Code</li>
-                <li class="list-title">Etc</li>
-            </ul>
-        </section>
-        <section class="tasks-container"></section>
-    </main>
+  <header class="main-header"><h1>Today's Agenda</h1></header>
+  <main>
+    <section class="lists-section">
+      
+      <header class="lists-header"><h2>Lists</h2></header>
+      <ul class="lists" data-lists>
+          <!-- <li class="list-name">Home</li>
+          <li class="list-name">Code</li>
+          <li class="list-name">Fitness</li>
+          <li class="list-name">Art</li> -->
+      </ul>
+
+      <form action="" class="create-list-form">
+        <input type="text" class="create-list-input" placeholder="Enter list name">
+        <button class="create-list-btn">Create New List</button>
+      </form>
+
+    </section>
+
+    <section class="tasks-section">
+      
+      <header class="tasks-header"><h2>Tasks</h2></header>
+      <ul class="tasks">
+        <!-- <li class="task-container">
+          <input type="checkbox" id="task-1"/>
+          <label for="task-1">Task 1</label>
+        </li>
+        <li class="task-container">
+          <input type="checkbox" id="task-2"/>
+          <label for="task-2">Task 2</label>
+        </li>
+        <li class="task-container">
+          <input type="checkbox" id="task-3"/>
+          <label for="task-3">Task 3</label>
+        </li> -->
+      </ul>
+
+      <form action="">
+        <input type="text" class="create-task" placeholder="Enter task name">
+        <button class="create-task-btn">Create New Task</button>
+      </form>
+      
+    </section>
+  </main>
     
 </body>
 </html>
