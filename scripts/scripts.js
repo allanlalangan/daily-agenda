@@ -2,6 +2,10 @@ const listsContainer = document.querySelector('[data-lists]'); //<ul> elements w
 const createListForm = document.querySelector('.create-list-form');
 const createListInput = document.querySelector('.create-list-input');
 
+//LOCAL STORAGE KEYS
+const storageListsKey = "todo.lists";
+const storageActiveListKey = "todo.activeListId";
+
 // Our lists will each have a unique ID
 // a name that will be displayed
 // and a corresponding array of tasks that will be displayed in the tasks section
@@ -23,11 +27,16 @@ createListForm.addEventListener('submit', e => {
   const newListName = createListInput.value;
   if (newListName == null || newListName === '') { return } //if input field is empty, do nothing
   const newList = createList(newListName); //the createList function will return an object to be stored in the lists variable
-  createListInput.value = null;
+  createListInput.value = null; //clears input field after submit
   lists.push(newList);
   render();
 })
 
+// the createList function accepts the name of the list the user submitted as a parameter
+// then returns an object
+// each new list will have its own unique id
+// the id must be converted to a string because it will be saved to localStorage
+// DOM string map key values must be strings
 function createList(name) {
   return (
     {
@@ -60,3 +69,4 @@ function clearElement(element) {
 }
 
 render();
+
