@@ -1,10 +1,14 @@
-const listsContainer = document.querySelector('[data-lists]'); //<ul> elements will be used as containers
+const listsContainer = document.querySelector('.lists'); //<ul> elements will be used as containers
 const createListForm = document.querySelector('.create-list-form');
 const createListInput = document.querySelector('.create-list-input');
+const deleteListButton = document.querySelector('.delete-list-btn');
 
 //LOCAL STORAGE KEYS
 const storageListsKey = "todo.lists";
-const storageActiveListKey = "todo.activeListId";
+const storageActiveListIdKey = "todo.activeListId";
+
+let lists = JSON.parse(localStorage.getItem("todo.lists")) || [];
+let activeListId = localStorage.getItem("todo.activeListId");
 
 // Our lists will each have a unique ID
 // a name that will be displayed
@@ -15,7 +19,11 @@ const storageActiveListKey = "todo.activeListId";
 //   { id: 2, name: 'Code', tasks: [] },
 // ];
 
-let lists = [];
+listsContainer.addEventListener('click', e => {
+  if (e.target.tagName.toLowerCase() === 'li') {
+    activeListId = e.target.dataset.listId;
+  }
+})
 
 // Adds logic to list form
 // Prevent page refresh when form is submitted
@@ -32,6 +40,11 @@ createListForm.addEventListener('submit', e => {
   render();
 })
 
+deleteListButton.addEventListener('click', e => {
+  lists = lists.filter(list => list.id !== activeListId);
+  activeListId = null;
+  render();
+})
 // the createList function accepts the name of the list the user submitted as a parameter
 // then returns an object
 // each new list will have its own unique id
@@ -48,12 +61,14 @@ function createList(name) {
 }
 
 //the function below will clear the entire lists container first
-//then re-populate the container with the current lists
+//then re-render the container with the updated lists
+//a listId data attribute will be added to each list so it can be referenced when we set an li element as the active list
 function render() {
   clearElement(listsContainer);
 
   lists.forEach(list => {
     const newListElement = document.createElement('li');
+    newListElement.dataset.listId = list.id; 
     newListElement.classList.add('list-name');
     newListElement.innerText = list.name;
     listsContainer.appendChild(newListElement)
@@ -61,12 +76,12 @@ function render() {
   })
 }
 
-//the function below will check to see if an element (a ul in this case) has any existing children, if so delete them
+//the function below will check to see if an element has any existing children, if so delete them
 function clearElement(element) {
   while(element.firstChild) {
     element.removeChild(element.firstChild)
   }
 }
 
-render();
+
 
