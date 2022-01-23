@@ -7,8 +7,8 @@ const deleteListButton = document.querySelector('.delete-list-btn');
 const storageListsKey = "todo.lists";
 const storageActiveListIdKey = "todo.activeListId";
 
-let lists = JSON.parse(localStorage.getItem("todo.lists")) || [];
-let activeListId = localStorage.getItem("todo.activeListId");
+let lists = JSON.parse(localStorage.getItem(storageListsKey)) || [];
+let activeListId = localStorage.getItem(storageActiveListIdKey);
 
 // Our lists will each have a unique ID
 // a name that will be displayed
@@ -71,8 +71,10 @@ function render() {
     newListElement.dataset.listId = list.id; 
     newListElement.classList.add('list-name');
     newListElement.innerText = list.name;
+    if (list.id === activeListId) {
+      newListElement.classList.add('active-list')
+    }
     listsContainer.appendChild(newListElement)
-
   })
 }
 
