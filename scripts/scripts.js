@@ -97,6 +97,10 @@ function saveStorage() {
 function renderElements() {
   clearElement(listsContainer);
 
+  renderLists();
+}
+
+function renderLists() {
   savedLists.forEach(list => {
     const newListElement = document.createElement('li');
     newListElement.dataset.listId = list.id; 
