@@ -19,6 +19,8 @@ let activeListId = localStorage.getItem(storageActiveListIdKey);
 //   { id: 2, name: 'Code', tasks: [] },
 // ];
 
+// Adds event listener to lists container
+// if clicked target is an li element, that list will be saved as the activeList
 listsContainer.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'li') {
     activeListId = e.target.dataset.listId;
@@ -41,11 +43,16 @@ createListForm.addEventListener('submit', e => {
   saveAndRender();
 })
 
+// Adds event listener to delete list button
+// when clicked we are going to delete the active list by filtering any lists that are not active
+// said lists will then be reassiged as the savedLists in storage
+// the activeListId will be set to null, the list container is then re-rendered
 deleteListButton.addEventListener('click', e => {
   savedLists = savedLists.filter(list => list.id !== activeListId);
   activeListId = null;
   saveAndRender();
 })
+
 // the createList function accepts the name of the list the user submitted as a parameter
 // then returns an object
 // each new list will have its own unique id
@@ -61,6 +68,7 @@ function createList(name) {
   )
 }
 
+// saveAndRender() will update the localStorage before it re-renders the page
 function saveAndRender() {
   saveStorage();
   renderElements();
