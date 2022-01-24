@@ -1,7 +1,17 @@
+// Select lists section elements
 const listsContainer = document.querySelector('.lists'); //<ul> elements will be used as containers
 const createListForm = document.querySelector('.create-list-form');
 const createListInput = document.querySelector('.create-list-input');
+
+// Select tasks section elements
+const tasksContainer = document.querySelector('.tasks');
+const tasksHeading = document.querySelector('.tasks-heading');
+const remainingTasks = document.querySelector('.task-count');
+const createTaskForm = document.querySelector('.create-task-form');
+
+// Select delete button elements
 const deleteListButton = document.querySelector('.delete-list-btn');
+const deleteTaskButton = document.querySelector('.delete-task-btn');
 
 //LOCAL STORAGE KEYS
 const storageListsKey = "todo.lists";
