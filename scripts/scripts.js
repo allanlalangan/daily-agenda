@@ -4,6 +4,7 @@ const createListForm = document.querySelector('.create-list-form');
 const createListInput = document.querySelector('.create-list-input');
 
 // Select tasks section elements
+const tasksSection = document.querySelector('.tasks-section');
 const tasksContainer = document.querySelector('.tasks');
 const tasksHeading = document.querySelector('.tasks-heading');
 const remainingTasks = document.querySelector('.task-count');
