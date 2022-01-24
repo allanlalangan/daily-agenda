@@ -37,13 +37,13 @@ createListForm.addEventListener('submit', e => {
   const newList = createList(newListName); //the createList function will return an object to be stored in the lists variable
   createListInput.value = null; //clears input field after submit
   savedLists.push(newList);
-  render();
+  renderElements();
 })
 
 deleteListButton.addEventListener('click', e => {
   savedLists = savedLists.filter(list => list.id !== activeListId);
   activeListId = null;
-  render();
+  renderElements();
 })
 // the createList function accepts the name of the list the user submitted as a parameter
 // then returns an object
@@ -63,7 +63,7 @@ function createList(name) {
 //the function below will clear the entire lists container first
 //then re-render the container with the updated lists
 //a listId data attribute will be added to each list so it can be referenced when we set an li element as the active list
-function render() {
+function renderElements() {
   clearElement(listsContainer);
 
   savedLists.forEach(list => {
