@@ -60,6 +60,12 @@ function createList(name) {
   )
 }
 
+// saveStorage() updates storage items
+function saveStorage() {
+  localStorage.setItem(storageListsKey, JSON.stringify(savedLists));
+  localStorage.setItem(storageActiveListIdKey, activeListId);
+}
+
 //the function below will clear the entire lists container first
 //then re-render the container with the updated lists
 //a listId data attribute will be added to each list so it can be referenced when we set an li element as the active list
@@ -85,5 +91,6 @@ function clearElement(element) {
   }
 }
 
-
+//renders elements to the page
+renderElements()
 
