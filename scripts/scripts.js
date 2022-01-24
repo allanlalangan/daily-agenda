@@ -9,6 +9,7 @@ const tasksContainer = document.querySelector('.tasks');
 const tasksHeading = document.querySelector('.tasks-heading');
 const remainingTasks = document.querySelector('.task-count');
 const createTaskForm = document.querySelector('.create-task-form');
+const createTaskInput = document.querySelector('.create-task-input');
 
 // Select delete button elements
 const deleteListButton = document.querySelector('.delete-list-btn');
@@ -38,8 +39,8 @@ let activeListId = localStorage.getItem(storageActiveListIdKey);
 listsContainer.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'li') {
     activeListId = e.target.dataset.listId;
+    saveAndRender();
   }
-  saveAndRender();
 })
 
 // Adds logic to list form
@@ -50,10 +51,21 @@ listsContainer.addEventListener('click', e => {
 createListForm.addEventListener('submit', e => {
   e.preventDefault();
   const newListName = createListInput.value;
-  if (newListName == null || newListName === '') { return } //if input field is empty, do nothing
+  if (newListName == null || newListName === '') return  //if input field is empty, do nothing
   const newList = createListObject(newListName); //the createList function will return an object to be stored in the lists variable
   createListInput.value = null; //clears input field after submit
   savedLists.push(newList);
+  saveAndRender();
+})
+
+createTaskForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const newTaskName = createTaskInput.value;
+  if (newTaskName == null || newTaskName === '') return //if input field is empty, do nothing
+  const newTask = createTaskObject(newTaskName); //the createList function will return an object to be stored in the lists variable
+  createTaskInput.value = null; //clears input field after submit
+  const activeList = savedLists.find(list => list.id === activeListId);
+  activeList.tasks.push(newTask);
   saveAndRender();
 })
 
@@ -87,6 +99,7 @@ function createTaskObject(name) {
 function saveAndRender() {
   saveStorage();
   renderElements();
+  
 }
 
 // saveStorage() updates storage items
@@ -100,8 +113,15 @@ function saveStorage() {
 //a listId data attribute will be added to each list so it can be referenced when we set an li element as the active list
 function renderElements() {
   clearElement(listsContainer);
-
   renderLists();
+
+  const activeList = savedLists.filter(list => list.id === activeListId);
+  console.log(activeList.length);
+  if (activeList.length === 0) {
+    tasksSection.style.display = 'none';
+  } else {
+    tasksSection.style.display = '';
+  }
 }
 
 function renderLists() {
