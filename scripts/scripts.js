@@ -7,7 +7,7 @@ const deleteListButton = document.querySelector('.delete-list-btn');
 const storageListsKey = "todo.lists";
 const storageActiveListIdKey = "todo.activeListId";
 
-let lists = JSON.parse(localStorage.getItem(storageListsKey)) || [];
+let savedLists = JSON.parse(localStorage.getItem(storageListsKey)) || [];
 let activeListId = localStorage.getItem(storageActiveListIdKey);
 
 // Our lists will each have a unique ID
@@ -36,12 +36,12 @@ createListForm.addEventListener('submit', e => {
   if (newListName == null || newListName === '') { return } //if input field is empty, do nothing
   const newList = createList(newListName); //the createList function will return an object to be stored in the lists variable
   createListInput.value = null; //clears input field after submit
-  lists.push(newList);
+  savedLists.push(newList);
   render();
 })
 
 deleteListButton.addEventListener('click', e => {
-  lists = lists.filter(list => list.id !== activeListId);
+  savedLists = savedLists.filter(list => list.id !== activeListId);
   activeListId = null;
   render();
 })
@@ -66,7 +66,7 @@ function createList(name) {
 function render() {
   clearElement(listsContainer);
 
-  lists.forEach(list => {
+  savedLists.forEach(list => {
     const newListElement = document.createElement('li');
     newListElement.dataset.listId = list.id; 
     newListElement.classList.add('list-name');
