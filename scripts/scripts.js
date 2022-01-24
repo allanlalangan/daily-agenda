@@ -104,13 +104,25 @@ function renderElements() {
   clearElement(listsContainer);
   renderLists();
 
-  const activeList = savedLists.filter(list => list.id === activeListId);
-  console.log(activeList.length);
-  if (activeList.length === 0) {
+  const activeList = savedLists.find(list => list.id === activeListId);
+  if (activeList == null) {
     tasksSection.style.display = 'none';
   } else {
     tasksSection.style.display = '';
+    tasksHeading.innerText = activeList.name;
   }
+}
+
+function renderTasks(activeList) {
+  activeList.tasks.forEach(task => {
+    const newTaskElement = document.importNode(taskTemplate.content, true)
+    const checkbox = newTaskElement.querySelector('input');
+    const label = newTaskElement.querySelector('label')
+    checkbox.checked = task.complete;
+    label.htmlFor = task.id;
+    label.innerText = task.name;
+    tasksContainer.appendChild(newTaskElement)
+  })
 }
 
 function renderLists() {
