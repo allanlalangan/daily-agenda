@@ -11,7 +11,7 @@ const createTaskForm = document.querySelector('.create-task-form');
 
 // Select delete button elements
 const deleteListButton = document.querySelector('.delete-list-btn');
-const deleteTaskButton = document.querySelector('.delete-task-btn');
+const clearCompletedTasksButton = document.querySelector('.clear-tasks-btn');
 
 //LOCAL STORAGE KEYS
 const storageListsKey = "todo.lists";
