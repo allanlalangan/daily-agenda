@@ -14,6 +14,9 @@ const createTaskForm = document.querySelector('.create-task-form');
 const deleteListButton = document.querySelector('.delete-list-btn');
 const clearCompletedTasksButton = document.querySelector('.clear-tasks-btn');
 
+// html template for tasks
+const taskTemplate = document.getElementById('task-template');
+
 //LOCAL STORAGE KEYS
 const storageListsKey = "todo.lists";
 const storageActiveListIdKey = "todo.activeListId";
