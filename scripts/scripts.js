@@ -23,6 +23,7 @@ listsContainer.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'li') {
     activeListId = e.target.dataset.listId;
   }
+  saveAndRender();
 })
 
 // Adds logic to list form
@@ -37,13 +38,13 @@ createListForm.addEventListener('submit', e => {
   const newList = createList(newListName); //the createList function will return an object to be stored in the lists variable
   createListInput.value = null; //clears input field after submit
   savedLists.push(newList);
-  renderElements();
+  saveAndRender();
 })
 
 deleteListButton.addEventListener('click', e => {
   savedLists = savedLists.filter(list => list.id !== activeListId);
   activeListId = null;
-  renderElements();
+  saveAndRender();
 })
 // the createList function accepts the name of the list the user submitted as a parameter
 // then returns an object
