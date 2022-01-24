@@ -58,17 +58,6 @@ createListForm.addEventListener('submit', e => {
   saveAndRender();
 })
 
-createTaskForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const newTaskName = createTaskInput.value;
-  if (newTaskName == null || newTaskName === '') return //if input field is empty, do nothing
-  const newTask = createTaskObject(newTaskName); //the createList function will return an object to be stored in the lists variable
-  createTaskInput.value = null; //clears input field after submit
-  const activeList = savedLists.find(list => list.id === activeListId);
-  activeList.tasks.push(newTask);
-  saveAndRender();
-})
-
 // Adds event listener to delete list button
 // when clicked we are going to delete the active list by filtering any lists that are not active
 // said lists will then be reassiged as the savedLists in storage
