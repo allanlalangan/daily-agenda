@@ -51,10 +51,21 @@ listsContainer.addEventListener('click', e => {
 createListForm.addEventListener('submit', e => {
   e.preventDefault();
   const newListName = createListInput.value;
-  if (newListName == null || newListName === '') return  //if input field is empty, do nothing
+  if (newListName == null || newListName === '') return; //if input field is empty, do nothing
   const newList = createListObject(newListName); //the createList function will return an object to be stored in the lists variable
   createListInput.value = null; //clears input field after submit
   savedLists.push(newList);
+  saveAndRender();
+})
+
+createTaskForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const activeList = savedLists.find(list => list.id === activeListId);
+  const newTaskName = createTaskInput.value;
+  if (newTaskName == null || newTaskName === '') return;
+  const newTask = createTaskObject(newTaskName);
+  createTaskInput.value = null;
+  activeList.tasks.push(newTask);
   saveAndRender();
 })
 
@@ -110,6 +121,8 @@ function renderElements() {
   } else {
     tasksSection.style.display = '';
     tasksHeading.innerText = activeList.name;
+    clearElement(tasksContainer);
+    renderTasks(activeList);
   }
 }
 
