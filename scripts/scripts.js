@@ -60,6 +60,11 @@ function createList(name) {
   )
 }
 
+function saveAndRender() {
+  saveStorage();
+  renderElements();
+}
+
 // saveStorage() updates storage items
 function saveStorage() {
   localStorage.setItem(storageListsKey, JSON.stringify(savedLists));
