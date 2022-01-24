@@ -47,7 +47,7 @@ createListForm.addEventListener('submit', e => {
   e.preventDefault();
   const newListName = createListInput.value;
   if (newListName == null || newListName === '') { return } //if input field is empty, do nothing
-  const newList = createList(newListName); //the createList function will return an object to be stored in the lists variable
+  const newList = createListObject(newListName); //the createList function will return an object to be stored in the lists variable
   createListInput.value = null; //clears input field after submit
   savedLists.push(newList);
   saveAndRender();
@@ -63,19 +63,20 @@ deleteListButton.addEventListener('click', e => {
   saveAndRender();
 })
 
-// the createList function accepts the name of the list the user submitted as a parameter
+// the createListObject function accepts the name of the list the user submitted as a parameter
 // then returns an object
 // each new list will have its own unique id
 // the id must be converted to a string because it will be saved to localStorage
-// DOM string map key values must be strings
-function createList(name) {
-  return (
-    {
-      id: Date.now().toString(),
-      name: name,
-      tasks: []
-    }
-  )
+function createListObject(name) {
+  return { id: Date.now().toString(), name: name, tasks: [] }
+}
+
+// the createTaskObject function accepts the name of the list the user submitted as a parameter
+// then returns an object
+// each new task will have its own unique id
+// the id must be converted to a string because it will be saved to localStorage
+function createTaskObject(name) {
+  return { id: Date.now().toString(), name: name, complete: false }
 }
 
 // saveAndRender() will update the localStorage before it re-renders the page
@@ -107,6 +108,7 @@ function renderElements() {
     listsContainer.appendChild(newListElement)
   })
 }
+
 
 //the function below will check to see if an element has any existing children, if so delete them
 function clearElement(element) {
