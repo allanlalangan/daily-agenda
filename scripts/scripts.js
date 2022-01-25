@@ -25,21 +25,12 @@ const storageActiveListIdKey = "todo.activeListId";
 let savedLists = JSON.parse(localStorage.getItem(storageListsKey)) || [];
 let activeListId = localStorage.getItem(storageActiveListIdKey);
 
-// Our lists will each have a unique ID
-// a name that will be displayed
-// and a corresponding array of tasks that will be displayed in the tasks section
-// here's an example:
-// let lists = [
-//   { id: 1, name: 'Home', tasks: [] },
-//   { id: 2, name: 'Code', tasks: [] },
-// ];
-
 // Adds event listener to lists container
 // if clicked target is an li element, that list will be saved as the activeList
 listsContainer.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'li') {
     activeListId = e.target.dataset.listId;
-    saveAndRender();
+    saveAndRender();    
   }
 })
 
@@ -126,11 +117,18 @@ function renderElements() {
   }
 }
 
+function renderTaskCount(activeList) {
+  const taskCount = activeList.tasks.length;
+  const taskOrTasks = taskCount === 1 ? 'task' : 'tasks';
+  const taskCountString = `${taskCount} ${taskOrTasks} remaining`;
+}
+
 function renderTasks(activeList) {
   activeList.tasks.forEach(task => {
     const newTaskElement = document.importNode(taskTemplate.content, true)
     const checkbox = newTaskElement.querySelector('input');
     const label = newTaskElement.querySelector('label')
+    checkbox.id = task.id;
     checkbox.checked = task.complete;
     label.htmlFor = task.id;
     label.innerText = task.name;
