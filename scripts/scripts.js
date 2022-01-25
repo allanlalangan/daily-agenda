@@ -34,6 +34,22 @@ listsContainer.addEventListener('click', e => {
   }
 })
 
+// Adds event listener to tasks container
+// checks if the clicked target is an input element
+// if any of our task object's id property matches the targeted input element id, it will be set as our selected task
+// if a checkbox is checked, the task's complete property will be set true
+// if not, it will remain false (incomplete)
+// then it will be saved and the task count is re-rendered
+tasksContainer.addEventListener('click', e => {
+  if (e.target.tagName.toLowerCase() === 'input') {
+  const activeList = savedLists.find(list => list.id === activeListId);
+  const selectedTask = activeList.tasks.find(task => task.id === e.target.id);
+  selectedTask.complete = e.target.checked;
+  saveStorage();
+  renderTaskCount(activeList);
+  }
+})
+
 // Adds logic to list form
 // Prevent page refresh when form is submitted
 // takes value of input field and stores it as a newListName variable
@@ -113,14 +129,16 @@ function renderElements() {
     tasksSection.style.display = '';
     tasksHeading.innerText = activeList.name;
     clearElement(tasksContainer);
+    renderTaskCount(activeList);
     renderTasks(activeList);
   }
 }
 
 function renderTaskCount(activeList) {
-  const taskCount = activeList.tasks.length;
-  const taskOrTasks = taskCount === 1 ? 'task' : 'tasks';
-  const taskCountString = `${taskCount} ${taskOrTasks} remaining`;
+  const incompleteTaskCount = activeList.tasks.filter(task => !task.complete).length;
+  const taskOrTasks = incompleteTaskCount === 1 ? 'task' : 'tasks';
+  const taskCountString = `${incompleteTaskCount} ${taskOrTasks} remaining`;
+  remainingTasks.innerText = taskCountString;
 }
 
 function renderTasks(activeList) {
