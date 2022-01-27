@@ -86,6 +86,12 @@ deleteListButton.addEventListener('click', e => {
   saveAndRender();
 })
 
+clearCompletedTasksButton.addEventListener('click', e => {
+  const activeList = savedLists.find(list => list.id === activeListId);
+  activeList.tasks = activeList.tasks.filter(task => !task.complete);
+  saveAndRender();
+})
+
 // the createListObject function accepts the name of the list the user submitted as a parameter
 // then returns an object
 // each new list will have its own unique id
