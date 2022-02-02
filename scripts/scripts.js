@@ -132,8 +132,10 @@ function renderElements() {
   const activeList = savedLists.find((list) => list.id === activeListId);
   if (activeList == null) {
     tasksSection.style.display = "none";
+    deleteListButton.style.display = "none";
   } else {
     tasksSection.style.display = "";
+    deleteListButton.style.display = "";
     tasksHeading.innerText = activeList.name;
     clearElement(tasksContainer);
     renderTaskCount(activeList);
