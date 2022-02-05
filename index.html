@@ -1,57 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles/styles.css">
-  <script defer src="./scripts/scripts.js"></script>
-  <title>Today's Agenda</title>
-</head>
-<body>
-  <header class="main-header"><h1>Today's Agenda</h1></header>
-  <main class="main-grid">
-    <section class="lists-section">
-      
-      <header class="lists-header">
-        <h2 class="lists-heading heading">Lists</h2>
-      </header>
-      <ul class="lists"></ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <script defer src="./scripts/daily.js"></script>
+    <title>Today's Agenda</title>
+  </head>
+  <body>
+    <header class="main-header"><h1>Good Morning</h1></header>
+    <main class="main-grid">
+      <section class="lists-section">
+        <header class="lists-header">
+          <h2 class="lists-heading heading">Lists</h2>
+        </header>
+        <ul class="lists"></ul>
 
-      <form action="" class="create-list-form">
-        <input type="text" class="create-list-input" placeholder="Enter list name">
-        <button class="create-list-btn create-btn">Create New List</button>
-      </form>
+        <form action="" class="create-list-form">
+          <input
+            type="text"
+            class="create-list-input"
+            placeholder="Enter list name"
+          />
+          <button class="create-list-btn create-btn">Create New List</button>
+        </form>
+      </section>
 
-    </section>
+      <section class="tasks-section">
+        <header class="tasks-header">
+          <h2 class="tasks-heading heading">Tasks</h2>
+          <button class="delete-list-btn delete-btn">Delete List</button>
+          <p class="task-count">Add tasks</p>
+          <button class="clear-tasks-btn delete-btn">
+            Clear Completed Tasks
+          </button>
+        </header>
+        <ul class="tasks"></ul>
 
-    <section class="tasks-section">
-      
-      <header class="tasks-header">
-        <h2 class="tasks-heading heading">Tasks</h2>
-        <button class="delete-list-btn delete-btn">Delete List</button>
-        <p class="task-count">Add tasks</p>
-          <button class="clear-tasks-btn delete-btn">Clear Completed Tasks</button>
-      </header>
-      <ul class="tasks"></ul>
+        <form action="" class="create-task-form">
+          <input
+            type="text"
+            class="create-task-input"
+            placeholder="Enter task name"
+          />
+          <button class="create-task-btn create-btn">Create New Task</button>
+        </form>
+      </section>
+    </main>
 
-      <form action="" class="create-task-form">
-        <input type="text" class="create-task-input" placeholder="Enter task name">
-        <button class="create-task-btn create-btn">Create New Task</button>
-      </form>
-
-    </section>
-
-  </main>
-  
-  <template id="task-template">
-    <li class="task">
-      <input type="checkbox" />
-      <label class="task-name"></label>
-    </li>
-  </template>
-</body>
+    <template id="task-template">
+      <li class="task">
+        <input type="checkbox" />
+        <label class="task-name"></label>
+      </li>
+    </template>
+  </body>
 </html>
