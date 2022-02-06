@@ -20,6 +20,16 @@ let savedLists = JSON.parse(localStorage.getItem('daily.lists')) || [];
 let activeListId = localStorage.getItem('daily.activeListId');
 
 renderLists();
+const radioElements = document.getElementsByClassName('list-radio');
+// const activeRadio = radioElements.find(radio => radio.id === activeListId));
+
+// Intially check radio that corresponds to activeListId
+savedLists.forEach(listObj => {
+  if (listObj.id === activeListId) {
+    const selectedRadio = document.getElementById(`${activeListId}`);
+    selectedRadio.checked = true;
+  }
+})
 
 function saveStorage() {
 	localStorage.setItem('daily.lists', JSON.stringify(savedLists));
@@ -49,13 +59,12 @@ function createListElement(listObj) {
   radio.classList.add('list-radio');
   radio.name = 'list';
   radio.id = listObj.id;
+  radio.dataset.radioId = listObj.id;
 
   const label = document.createElement('label');
   label.htmlFor = listObj.id;
   label.innerText = listObj.name;
 
-  activeListId === listObj.id &&
-  newLi.classList.toggle('active-list');
   newLi.appendChild(radio);
   newLi.appendChild(label);
   return newLi
@@ -67,6 +76,15 @@ function renderLists() {
     lists_ul.insertAdjacentElement('beforeend', newList);
   })
 }
+
+lists_ul.addEventListener('click', e => {
+  if (e.target.tagName.toLowerCase() === 'input') {
+    activeListId = e.target.id;
+    console.log(activeListId);
+    saveStorage();
+  }
+
+})
 
 listForm.addEventListener('submit', e => {
   e.preventDefault();
@@ -84,3 +102,4 @@ taskForm.addEventListener('submit', e => {
   e.preventDefault();
 })
 
+// document.addEventListener('click', e => console.log(e.target));
