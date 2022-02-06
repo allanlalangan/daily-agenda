@@ -20,7 +20,7 @@ let savedLists = JSON.parse(localStorage.getItem('daily.lists')) || [];
 let activeListId = localStorage.getItem('daily.activeListId');
 
 renderLists();
-const radioElements = document.getElementsByClassName('list-radio');
+
 // Intially check radio that corresponds to activeListId
 savedLists.forEach(listObj => {
   if (listObj.id === activeListId) {
