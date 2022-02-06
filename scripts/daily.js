@@ -20,6 +20,7 @@ let savedLists = JSON.parse(localStorage.getItem('daily.lists')) || [];
 let activeListId = localStorage.getItem('daily.activeListId');
 
 renderLists();
+renderTasks()
 
 // Intially check radio that corresponds to activeListId
 savedLists.forEach(listObj => {
@@ -74,10 +75,26 @@ function renderLists() {
   })
 }
 
+function clearList(element) {
+	while (element.firstChild) {
+		element.removeChild(element.firstChild);
+	}
+}
+
+function renderTasks() {
+  const activeList = savedLists.find(list => list.id === activeListId);
+  clearList(tasks_ul);
+  activeList.tasks.forEach(task => {
+    const newTask = createTaskElement(task);
+    tasks_ul.insertAdjacentElement('beforeend', newTask);
+  })
+}
+
 lists_ul.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'input') {
     activeListId = e.target.id;
     console.log(activeListId);
+    renderTasks();
     saveStorage();
   }
 })
@@ -96,4 +113,32 @@ listForm.addEventListener('submit', e => {
 
 taskForm.addEventListener('submit', e => {
   e.preventDefault();
+  const activeList = savedLists.find(list => list.id === activeListId);
+  const newTask = new TaskObject(taskInput.value);
+  activeList.tasks.push(newTask);
+  const taskElement = createTaskElement(newTask);
+  taskInput.value = null;
+  tasks_ul.appendChild(taskElement);
+  saveStorage();
 })
+
+function createTaskElement(taskObj) {
+  const newLi = document.createElement('li');
+  newLi.classList.add('task-name');
+  newLi.dataset.id = taskObj.id;
+
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.classList.add('task-checkbox');
+  checkbox.name = 'task';
+  checkbox.id = taskObj.id;
+  checkbox.dataset.radioId = taskObj.id;
+
+  const label = document.createElement('label');
+  label.htmlFor = taskObj.id;
+  label.innerText = taskObj.name;
+
+  newLi.appendChild(checkbox);
+  newLi.appendChild(label);
+  return newLi
+}

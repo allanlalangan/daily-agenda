@@ -48,7 +48,15 @@ label {
   display: none;
 }
 
-input:checked+label {
+.task-checkbox {
+  display: none;
+}
+
+.task-checkbox:checked + label {
+  text-decoration: line-through;
+}
+
+.list-radio:checked + label {
   background-color: var(--prim-color);
   color: var(--sec-color);
   font-weight: 600;
