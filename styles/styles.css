@@ -1,6 +1,11 @@
 :root {
-  --prim-color: hsl(190, 40%, 80%);
-  --sec-color: hsl(219, 97%, 25%);
+  --prim-color: hsl(184, 57%, 90%);
+  --sec-color: hsl(219, 57%, 41%);
+
+  --gradient-color-1: rgba(173,0,143,1);
+  --gradient-color-2: rgba(255,132,0,1);
+  --gradient-color-3: rgba(0,159,255,1);
+  --title-gradient: linear-gradient(90deg, var(--gradient-color-1) 0%, var(--gradient-color-2) 50%, var(--gradient-color-3) 100%);
 }
 
 * {
@@ -16,10 +21,20 @@ body {
 .main-header {
   margin-left: 1.5rem;
   height: 3rem;
+  position: relative;
 }
 
 h1 {
-  font-style: italic;
+  background: var(--title-gradient);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Monoton', cursive;
+  font-weight: 200;
+  font-size: 3rem;
+  letter-spacing: 1rem;
+  text-transform: uppercase;
+
+  position: absolute;
 }
 
 .main-grid {
