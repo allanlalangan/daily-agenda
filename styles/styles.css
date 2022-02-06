@@ -1,3 +1,8 @@
+:root {
+  --prim-color: hsl(190, 40%, 80%);
+  --sec-color: hsl(219, 97%, 25%);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -31,20 +36,31 @@ section {
   background-color: whitesmoke;
 }
 
-.active-list {
-  background-color: hsl(187, 37%, 63%);
+label {
+  display: block;
+  padding: .5rem;
+  width: 100%;
+  border-radius: 1rem 0 1rem .5rem;
+  transition: all 0.2s ease;
+}
+
+.list-radio {
+  display: none;
+}
+
+input:checked+label {
+  background-color: var(--prim-color);
+  color: var(--sec-color);
   font-weight: 600;
 }
 
 li {
-  padding: 0.75rem;
   list-style: none;
 }
 
 .lists li {
-  border-radius: 0.25rem;
   margin: auto;
-  width: 90%;
+  width: 100%;
   transition: all 0.2s ease;
 }
 
@@ -82,7 +98,7 @@ li {
 }
 
 .tasks-header {
-  background-color: hsl(187, 37%, 63%);
+  background-color: var(--prim-color);
   border-radius: 0.5rem 0.5rem 0 0;
   grid-column: 1;
   grid-row: 1 / 3;
