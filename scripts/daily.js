@@ -37,8 +37,7 @@ function saveStorage() {
 function ListObject(name) { 
   this.id = Date.now().toString(), 
   this.name = name,
-  this.tasks = [],
-  this.selected = false
+  this.tasks = []
 }
 
 function TaskObject(name) {
