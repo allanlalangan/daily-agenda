@@ -41,7 +41,7 @@ label {
   padding: .5rem;
   width: 100%;
   border-radius: 1rem 0 1rem .5rem;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .list-radio {
@@ -152,15 +152,6 @@ button {
   padding: 0.5rem;
 }
 
-::placeholder {
-  font-family: "Work Sans", sans-serif;
-  text-align: center;
-  letter-spacing: 2px;
-  font-size: large;
-  /* margin: 0; */
-  font-style: italic;
-}
-
 .list-input {
   border: none;
   width: 75%;
@@ -175,12 +166,14 @@ button {
 }
 
 .list-input,
-.task-input {
+.task-input,
+::placeholder {
   font-family: inherit;
-  letter-spacing: 2px;
-  font-size: large;
+  letter-spacing: 1px;
+  font-weight: 300;
+  font-size: 1rem;
   text-align: center;
-  font-style: italic;
+  /* font-style: italic; */
 }
 
 input:checked label {

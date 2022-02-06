@@ -59,6 +59,11 @@ tasks_ul.addEventListener('click', e => {
   }
 })
 
+deleteListBtn.addEventListener('click', e => {
+  const activeList = savedLists.find(list => list.id === activeListId);
+  console.log(activeList);
+})
+
 renderTasks(activeListId);
 
 function ListObject(name) { 
@@ -103,7 +108,7 @@ function renderLists() {
 
 function renderTasks(activeListId) {
   const activeList = savedLists.find(list => list.id === activeListId);
-  if (activeListId === null || activeList.tasks.length === 0) {
+  if (activeListId === null) {
     clearList(tasks_ul);
     clearTasksBtn.style.display = 'none';
     deleteListBtn.style.display = 'none';
