@@ -4,6 +4,8 @@ const listsSection = document.querySelector('.lists-section');
 const lists_ul = document.querySelector('.lists');
 const tasks_ul = document.querySelector('.tasks');
 
+const remainingTasks = document.querySelector('.task-count');
+
 const listForm = document.querySelector('.list-form');
 const taskForm = document.querySelector('.task-form');
 
@@ -13,14 +15,16 @@ const taskInput = document.querySelector('.task-input');
 const newListBtn = document.querySelector('.create-list-btn');
 const newTaskBtn = document.querySelector('.create-task-btn');
 
-const deleteListBtn = document.querySelector('.create-list-btn');
-const deleteTaskBtn = document.querySelector('.create-Task-btn');
+const deleteListBtn = document.querySelector('.delete-list-btn');
+const deleteTaskBtn = document.querySelector('.clear-tasks-btn');
 
 let savedLists = JSON.parse(localStorage.getItem('daily.lists')) || [];
 let activeListId = localStorage.getItem('daily.activeListId');
 
+const taskTemplate = document.getElementById('task-template');
+
 renderLists();
-if (activeListId) { renderTasks() }
+renderTasks(activeListId);
 
 // Intially check radio that corresponds to activeListId
 savedLists.forEach(listObj => {
@@ -38,7 +42,8 @@ function saveStorage() {
 lists_ul.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'input') {
     activeListId = e.target.id;
-    renderTasks();
+    const activeList = savedLists.find(list => list.id === activeListId);
+    renderTasks(activeListId);
     saveStorage();
   }
 })
@@ -85,27 +90,6 @@ function createListElement(listObj) {
   return newLi
 }
 
-function createTaskElement(taskObj) {
-  const newLi = document.createElement('li');
-  newLi.classList.add('task-name');
-  newLi.dataset.id = taskObj.id;
-
-  const checkbox = document.createElement('input');
-  checkbox.type = 'checkbox';
-  checkbox.classList.add('task-checkbox');
-  checkbox.name = 'task';
-  checkbox.id = taskObj.id;
-  checkbox.dataset.radioId = taskObj.id;
-
-  const label = document.createElement('label');
-  label.htmlFor = taskObj.id;
-  label.innerText = taskObj.name;
-
-  newLi.appendChild(checkbox);
-  newLi.appendChild(label);
-  return newLi
-}
-
 function renderLists() {
   savedLists.forEach(list => {
     const newList = createListElement(list);
@@ -113,13 +97,32 @@ function renderLists() {
   })
 }
 
-function renderTasks() {
+function renderTasks(activeListId) {
   const activeList = savedLists.find(list => list.id === activeListId);
-  clearList(tasks_ul);
-  activeList.tasks.forEach(task => {
-    const newTask = createTaskElement(task);
-    tasks_ul.insertAdjacentElement('beforeend', newTask);
-  })
+  if (activeList.tasks.length > 0) {
+    clearList(tasks_ul);
+    activeList.tasks.forEach((task) => {
+      const newTaskElement = document.importNode(taskTemplate.content, true);
+      const checkbox = newTaskElement.querySelector('input');
+      const label = newTaskElement.querySelector('label');
+      checkbox.id = task.id;
+      checkbox.classList.add('task-checkbox');
+      checkbox.checked = task.complete;
+      label.htmlFor = task.id;
+      label.innerText = task.name;
+      tasks_ul.appendChild(newTaskElement);
+    });
+  } else { clearList(tasks_ul) }
+}
+
+function renderTaskCount(activeList) {
+	if (activeList.tasks.length > 0) {
+    const incompleteTaskCount = activeList.tasks.filter(task => !task.complete).length;
+    const taskOrTasks = incompleteTaskCount === 1 ? 'task' : 'tasks';
+    const taskCountString = `${incompleteTaskCount} ${taskOrTasks} remaining`;
+		remainingTasks.innerText = taskCountString;
+		// deleteTaskBtn.style.display = 'none';
+	}
 }
 
 function clearList(element) {
@@ -145,8 +148,7 @@ taskForm.addEventListener('submit', e => {
   const activeList = savedLists.find(list => list.id === activeListId);
   const newTask = new TaskObject(taskInput.value);
   activeList.tasks.push(newTask);
-  const taskElement = createTaskElement(newTask);
   taskInput.value = null;
-  tasks_ul.appendChild(taskElement);
+  renderTasks(activeListId);
   saveStorage();
 })
