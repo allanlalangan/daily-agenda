@@ -42,7 +42,6 @@ lists_ul.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'input') {
     activeListId = e.target.id;
     const activeList = savedLists.find(list => list.id === activeListId);
-    console.log(activeList);
     renderTaskCount(activeList);
     renderTasks(activeListId);
     saveStorage();
@@ -64,7 +63,13 @@ deleteListBtn.addEventListener('click', e => {
   console.log(activeList);
 })
 
-renderTasks(activeListId);
+clearTasksBtn.addEventListener('click', e => {
+  const activeList = savedLists.find(list => list.id === activeListId);
+  activeList.tasks = activeList.tasks.filter(task => !task.complete);
+  renderTasks();
+})
+
+renderTasks();
 
 function ListObject(name) { 
   this.id = Date.now().toString(), 
@@ -106,8 +111,7 @@ function renderLists() {
   })
 }
 
-function renderTasks(activeListId) {
-  const activeList = savedLists.find(list => list.id === activeListId);
+function renderTasks() {
   if (activeListId === null) {
     clearList(tasks_ul);
     clearTasksBtn.style.display = 'none';
