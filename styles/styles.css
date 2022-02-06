@@ -16,6 +16,7 @@
 
 body {
   font-family: "Work Sans", sans-serif;
+  font-size: 18px;
 }
 
 .main-header {
@@ -162,9 +163,14 @@ form {
 
 button {
   border: none;
-  margin: 1rem;
   font-family: inherit;
-  padding: 0.5rem;
+  padding: .5rem;
+}
+
+.create-btn {
+  width: calc(100% - 2rem);
+  padding: 1rem;
+  margin-top: 1rem;
 }
 
 .list-input {
