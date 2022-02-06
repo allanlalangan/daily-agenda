@@ -169,12 +169,13 @@ button {
 
 .list-input {
   border: none;
-  width: 75%;
+  width: calc(100% - 2rem);
   padding: 1rem;
 }
 
 .task-input {
   border: none;
+  text-align: center;
   height: 100%;
   padding: 1rem;
   width: calc(100% - 2rem);
@@ -187,8 +188,10 @@ button {
   letter-spacing: 1px;
   font-weight: 300;
   font-size: 1rem;
+}
+
+::placeholder {
   text-align: center;
-  /* font-style: italic; */
 }
 
 input:checked label {

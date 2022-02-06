@@ -4,6 +4,7 @@ const listsSection = document.querySelector('.lists-section');
 const lists_ul = document.querySelector('.lists');
 const tasks_ul = document.querySelector('.tasks');
 
+const listNameHeading = document.querySelector('.tasks-heading');
 const remainingTasks = document.querySelector('.task-count');
 
 const listForm = document.querySelector('.list-form');
@@ -23,6 +24,11 @@ let activeListId = localStorage.getItem('daily.activeListId');
 
 const taskTemplate = document.getElementById('task-template');
 
+listNameHeading.innerText = '';
+remainingTasks.innerText = '';
+deleteListBtn.style.display = 'none';
+clearTasksBtn.style.display = 'none';
+
 renderLists();
 
 // Intially check radio that corresponds to activeListId
@@ -30,6 +36,7 @@ savedLists.forEach(listObj => {
   if (listObj.id === activeListId) {
     const selectedRadio = document.getElementById(`${activeListId}`);
     selectedRadio.checked = true;
+    renderTasks();
   }
 })
 
@@ -43,8 +50,8 @@ lists_ul.addEventListener('click', e => {
     activeListId = e.target.id;
     const activeList = savedLists.find(list => list.id === activeListId);
     renderTaskCount(activeList);
-    renderTasks(activeListId);
     saveStorage();
+    renderTasks();
   }
 })
 
@@ -61,15 +68,23 @@ tasks_ul.addEventListener('click', e => {
 deleteListBtn.addEventListener('click', e => {
   const activeList = savedLists.find(list => list.id === activeListId);
   console.log(activeList);
+  savedLists = savedLists.filter(list => list.id != activeListId);
+  activeListId = null;
+  listNameHeading.innerText = '';
+  remainingTasks.innerText = '';
+  deleteListBtn.style.display = 'none';
+  clearTasksBtn.style.display = 'none';
+  clearList(lists_ul);
+  renderLists();
+  saveStorage();
 })
 
 clearTasksBtn.addEventListener('click', e => {
   const activeList = savedLists.find(list => list.id === activeListId);
   activeList.tasks = activeList.tasks.filter(task => !task.complete);
+  saveStorage();
   renderTasks();
 })
-
-renderTasks();
 
 function ListObject(name) { 
   this.id = Date.now().toString(), 
@@ -112,12 +127,9 @@ function renderLists() {
 }
 
 function renderTasks() {
-  if (activeListId === null) {
-    clearList(tasks_ul);
-    clearTasksBtn.style.display = 'none';
-    deleteListBtn.style.display = 'none';
-  } else {
     const activeList = savedLists.find(list => list.id === activeListId);
+    listNameHeading.innerText = `${activeList.name}`;
+    remainingTasks.innerText = `${activeList.name}`;
     deleteListBtn.style.display = '';
     renderTaskCount(activeList);
     clearList(tasks_ul);
@@ -132,7 +144,6 @@ function renderTasks() {
       label.innerText = task.name;
       tasks_ul.appendChild(newTaskElement);
     });
-  }
 }
 
 function renderTaskCount(activeList) {
@@ -168,6 +179,7 @@ listForm.addEventListener('submit', e => {
 
 taskForm.addEventListener('submit', e => {
   e.preventDefault();
+  if (taskInput.value === null || taskInput.value === '') return;
   const activeList = savedLists.find(list => list.id === activeListId);
   const newTask = new TaskObject(taskInput.value);
   activeList.tasks.push(newTask);
