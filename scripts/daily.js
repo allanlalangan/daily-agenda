@@ -24,7 +24,6 @@ let activeListId = localStorage.getItem('daily.activeListId');
 const taskTemplate = document.getElementById('task-template');
 
 renderLists();
-renderTasks(activeListId);
 
 // Intially check radio that corresponds to activeListId
 savedLists.forEach(listObj => {
@@ -43,6 +42,8 @@ lists_ul.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'input') {
     activeListId = e.target.id;
     const activeList = savedLists.find(list => list.id === activeListId);
+    console.log(activeList);
+    renderTaskCount(activeList);
     renderTasks(activeListId);
     saveStorage();
   }
@@ -57,6 +58,8 @@ tasks_ul.addEventListener('click', e => {
     saveStorage();
   }
 })
+
+renderTasks(activeListId);
 
 function ListObject(name) { 
   this.id = Date.now().toString(), 
@@ -100,10 +103,13 @@ function renderLists() {
 
 function renderTasks(activeListId) {
   const activeList = savedLists.find(list => list.id === activeListId);
-  if (activeList.tasks.length === 0) {
+  if (activeListId === null || activeList.tasks.length === 0) {
     clearList(tasks_ul);
-    renderTaskCount(activeList);
+    clearTasksBtn.style.display = 'none';
+    deleteListBtn.style.display = 'none';
   } else {
+    const activeList = savedLists.find(list => list.id === activeListId);
+    deleteListBtn.style.display = '';
     renderTaskCount(activeList);
     clearList(tasks_ul);
     activeList.tasks.forEach((task) => {

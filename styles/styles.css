@@ -146,12 +146,41 @@ form {
 }
 
 button {
+  border: none;
+  margin: 1rem;
   font-family: inherit;
   padding: 0.5rem;
 }
 
-input {
-  padding: 0.5rem;
+::placeholder {
+  font-family: "Work Sans", sans-serif;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: large;
+  /* margin: 0; */
+  font-style: italic;
+}
+
+.list-input {
+  border: none;
+  width: 75%;
+  padding: 1rem;
+}
+
+.task-input {
+  border: none;
+  height: 100%;
+  padding: 1rem;
+  width: calc(100% - 2rem);
+}
+
+.list-input,
+.task-input {
+  font-family: inherit;
+  letter-spacing: 2px;
+  font-size: large;
+  text-align: center;
+  font-style: italic;
 }
 
 input:checked label {
