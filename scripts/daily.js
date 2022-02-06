@@ -16,7 +16,7 @@ const newListBtn = document.querySelector('.create-list-btn');
 const newTaskBtn = document.querySelector('.create-task-btn');
 
 const deleteListBtn = document.querySelector('.delete-list-btn');
-const deleteTaskBtn = document.querySelector('.clear-tasks-btn');
+const clearTasksBtn = document.querySelector('.clear-tasks-btn');
 
 let savedLists = JSON.parse(localStorage.getItem('daily.lists')) || [];
 let activeListId = localStorage.getItem('daily.activeListId');
@@ -53,6 +53,7 @@ tasks_ul.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'input') {
     const selectedTask = activeList.tasks.find(task => task.id === e.target.id);
     selectedTask.complete = e.target.checked;
+    renderTaskCount(activeList);
     saveStorage();
   }
 })
@@ -99,7 +100,11 @@ function renderLists() {
 
 function renderTasks(activeListId) {
   const activeList = savedLists.find(list => list.id === activeListId);
-  if (activeList.tasks.length > 0) {
+  if (activeList.tasks.length === 0) {
+    clearList(tasks_ul);
+    renderTaskCount(activeList);
+  } else {
+    renderTaskCount(activeList);
     clearList(tasks_ul);
     activeList.tasks.forEach((task) => {
       const newTaskElement = document.importNode(taskTemplate.content, true);
@@ -112,16 +117,19 @@ function renderTasks(activeListId) {
       label.innerText = task.name;
       tasks_ul.appendChild(newTaskElement);
     });
-  } else { clearList(tasks_ul) }
+  }
 }
 
 function renderTaskCount(activeList) {
-	if (activeList.tasks.length > 0) {
+  if (activeList.tasks.length === 0) {
+    remainingTasks.innerText = 'No tasks';
+    clearTasksBtn.style.display = 'none';
+  } else {
+    clearTasksBtn.style.display = '';
     const incompleteTaskCount = activeList.tasks.filter(task => !task.complete).length;
     const taskOrTasks = incompleteTaskCount === 1 ? 'task' : 'tasks';
     const taskCountString = `${incompleteTaskCount} ${taskOrTasks} remaining`;
 		remainingTasks.innerText = taskCountString;
-		// deleteTaskBtn.style.display = 'none';
 	}
 }
 
