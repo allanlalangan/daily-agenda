@@ -21,8 +21,6 @@ let activeListId = localStorage.getItem('daily.activeListId');
 
 renderLists();
 const radioElements = document.getElementsByClassName('list-radio');
-// const activeRadio = radioElements.find(radio => radio.id === activeListId));
-
 // Intially check radio that corresponds to activeListId
 savedLists.forEach(listObj => {
   if (listObj.id === activeListId) {
@@ -83,7 +81,6 @@ lists_ul.addEventListener('click', e => {
     console.log(activeListId);
     saveStorage();
   }
-
 })
 
 listForm.addEventListener('submit', e => {
@@ -101,5 +98,3 @@ listForm.addEventListener('submit', e => {
 taskForm.addEventListener('submit', e => {
   e.preventDefault();
 })
-
-// document.addEventListener('click', e => console.log(e.target));
