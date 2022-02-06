@@ -76,6 +76,7 @@ label {
   background-color: var(--prim-color);
   color: var(--sec-color);
   font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 li {
@@ -198,8 +199,4 @@ button {
 
 ::placeholder {
   text-align: center;
-}
-
-input:checked label {
-  font-style: italic;
 }
