@@ -19,6 +19,20 @@ const newTaskBtn = document.querySelector('.create-task-btn');
 const deleteListBtn = document.querySelector('.delete-list-btn');
 const clearTasksBtn = document.querySelector('.clear-tasks-btn');
 
+//Modal
+const modalDim = document.querySelector('.modal-overlay')
+const deleteModal = document.querySelector('#modal-delete-list');
+const modalBtnNo = document.querySelector('#modal-btn-no');
+const modalBtnYes = document.querySelector('#modal-btn-yes');
+
+modalBtnNo.addEventListener('click', e => {
+  modalDimOff();
+})
+
+function modalDimOff() {
+  modalDim.classList.toggle('hidden');
+}
+
 let savedLists = JSON.parse(localStorage.getItem('daily.lists')) || [];
 let activeListId = localStorage.getItem('daily.activeListId');
 
