@@ -21,7 +21,7 @@ const clearTasksBtn = document.querySelector('.clear-tasks-btn');
 
 //Modal
 const modalDim = document.querySelector('.modal-overlay')
-const deleteModal = document.querySelector('#modal-delete-list');
+const modalDeleteList = document.querySelector('#modal-delete-list');
 const modalBtnNo = document.querySelector('#modal-btn-no');
 const modalBtnYes = document.querySelector('#modal-btn-yes');
 
@@ -81,17 +81,42 @@ tasks_ul.addEventListener('click', e => {
 
 deleteListBtn.addEventListener('click', e => {
   const activeList = savedLists.find(list => list.id === activeListId);
-  console.log(activeList);
-  savedLists = savedLists.filter(list => list.id != activeListId);
-  activeListId = null;
+
+  if (activeList.tasks.length >= 1) {
+    modalDeleteList.classList.remove('collapsed');
+    modalDim.classList.remove('hidden');
+  } else {
+    listNameHeading.innerText = '';
+    remainingTasks.innerText = '';
+    deleteListBtn.style.display = 'none';
+    clearTasksBtn.style.display = 'none';
+    savedLists = savedLists.filter(list => list.id != activeListId);
+    clearList(lists_ul);
+    clearList(tasks_ul);
+    activeListId = null;
+    renderLists();
+    saveStorage();
+  }
+})
+
+modalBtnYes.addEventListener('click', e => {
   listNameHeading.innerText = '';
   remainingTasks.innerText = '';
   deleteListBtn.style.display = 'none';
   clearTasksBtn.style.display = 'none';
+  savedLists = savedLists.filter(list => list.id != activeListId);
   clearList(lists_ul);
+  clearList(tasks_ul);
+  activeListId = null;
   renderLists();
   saveStorage();
+  closeModal();
 })
+
+const closeModal = () => {
+  modalDeleteList.classList.add('collapsed');
+  modalDim.classList.add('hidden');
+}
 
 clearTasksBtn.addEventListener('click', e => {
   const activeList = savedLists.find(list => list.id === activeListId);
