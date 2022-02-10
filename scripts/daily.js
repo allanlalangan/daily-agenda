@@ -25,10 +25,6 @@ const modalDeleteList = document.querySelector('#modal-delete-list');
 const modalBtnNo = document.querySelector('#modal-btn-no');
 const modalBtnYes = document.querySelector('#modal-btn-yes');
 
-function modalDimOff() {
-  modalDim.classList.toggle('hidden');
-}
-
 let savedLists = JSON.parse(localStorage.getItem('daily.lists')) || [];
 let activeListId = localStorage.getItem('daily.activeListId');
 
@@ -73,6 +69,15 @@ tasks_ul.addEventListener('click', e => {
   }
 })
 
+function modalDimOff() {
+  modalDim.classList.toggle('hidden');
+}
+
+const closeModal = () => {
+  modalDeleteList.classList.add('collapsed');
+  modalDim.classList.add('hidden');
+}
+
 deleteListBtn.addEventListener('click', e => {
   const activeList = savedLists.find(list => list.id === activeListId);
 
@@ -111,11 +116,6 @@ modalBtnYes.addEventListener('click', e => {
   saveStorage();
   closeModal();
 })
-
-const closeModal = () => {
-  modalDeleteList.classList.add('collapsed');
-  modalDim.classList.add('hidden');
-}
 
 clearTasksBtn.addEventListener('click', e => {
   const activeList = savedLists.find(list => list.id === activeListId);
