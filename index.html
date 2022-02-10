@@ -12,6 +12,15 @@
     <title>Today's Agenda</title>
   </head>
   <body>
+    <aside class="modal collapsed" id="modal-delete-list">
+      <p class="modal-message">This list contains tasks.<br>Are you sure you want to delete?</p>
+      <div class="modal-btns">
+        <button class="modal-btn" id="modal-btn-no">No</button>
+        <button class="modal-btn" id="modal-btn-yes">Yes</button>
+      </div>
+    </aside>
+    
+    <div class="modal-overlay hidden"></div>
     <header class="main-header"><h1>Good Morning</h1></header>
     <main class="main-grid">
       <section class="lists-section">
@@ -51,15 +60,6 @@
         </form>
       </section>
     </main>
-
-    <aside class="modal collapsed" id="modal-delete-list">
-      <p class="modal-message">This list contains tasks.<br>Are you sure you want to delete?</p>
-      <div class="modal-btns">
-        <button class="modal-btn" id="modal-btn-no">No</button>
-        <button class="modal-btn" id="modal-btn-yes">Yes</button>
-      </div>
-    </aside>
-    <div class="modal-overlay hidden"></div>
 
     <template id="task-template">
       <li class="task">
