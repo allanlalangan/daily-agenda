@@ -20,7 +20,7 @@ const deleteListBtn = document.querySelector('.delete-list-btn');
 const clearTasksBtn = document.querySelector('.clear-tasks-btn');
 
 //Modal
-const modalDim = document.querySelector('.modal-overlay')
+const modalOverlay = document.querySelector('.modal-overlay')
 const modalDeleteList = document.querySelector('#modal-delete-list');
 const modalBtnNo = document.querySelector('#modal-btn-no');
 const modalBtnYes = document.querySelector('#modal-btn-yes');
@@ -69,39 +69,13 @@ tasks_ul.addEventListener('click', e => {
   }
 })
 
-function modalDimOff() {
-  modalDim.classList.toggle('hidden');
-}
-
 const closeModal = () => {
   modalDeleteList.classList.add('collapsed');
-  modalDim.classList.add('hidden');
+  modalOverlay.classList.add('hidden');
 }
 
-deleteListBtn.addEventListener('click', e => {
-  const activeList = savedLists.find(list => list.id === activeListId);
-
-  if (activeList.tasks.length >= 1) {
-    modalDeleteList.classList.remove('collapsed');
-    modalDim.classList.remove('hidden');
-  } else {
-    listNameHeading.innerText = '';
-    remainingTasks.innerText = '';
-    deleteListBtn.style.display = 'none';
-    clearTasksBtn.style.display = 'none';
-    savedLists = savedLists.filter(list => list.id != activeListId);
-    clearList(lists_ul);
-    clearList(tasks_ul);
-    activeListId = null;
-    renderLists();
-    saveStorage();
-  }
-})
-
-modalBtnNo.addEventListener('click', e => {
-  modalDimOff();
-  closeModal();
-})
+modalOverlay.addEventListener('click', closeModal);
+modalBtnNo.addEventListener('click', closeModal);
 
 modalBtnYes.addEventListener('click', e => {
   listNameHeading.innerText = '';
@@ -115,6 +89,26 @@ modalBtnYes.addEventListener('click', e => {
   renderLists();
   saveStorage();
   closeModal();
+})
+
+deleteListBtn.addEventListener('click', e => {
+  const activeList = savedLists.find(list => list.id === activeListId);
+
+  if (activeList.tasks.length >= 1) {
+    modalDeleteList.classList.remove('collapsed');
+    modalOverlay.classList.remove('hidden');
+  } else {
+    listNameHeading.innerText = '';
+    remainingTasks.innerText = '';
+    deleteListBtn.style.display = 'none';
+    clearTasksBtn.style.display = 'none';
+    savedLists = savedLists.filter(list => list.id != activeListId);
+    clearList(lists_ul);
+    clearList(tasks_ul);
+    activeListId = null;
+    renderLists();
+    saveStorage();
+  }
 })
 
 clearTasksBtn.addEventListener('click', e => {
